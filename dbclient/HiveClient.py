@@ -549,7 +549,7 @@ class HiveClient(ClustersClient):
             return False
         # if (len > 2k chars) OR (has unicode chars) then export to file
         table_ddl_path = self.get_export_dir() + metastore_dir + db_name + '/' + table_name
-        if ddl_len > 2048 or has_unicode:
+        if ddl_len > 8192 or has_unicode:
             # create the dbfs tmp path for exports / imports. no-op if exists
             resp = self.post('/dbfs/mkdirs', {'path': '/tmp/migration/'})
             if logging_utils.log_response_error(error_logger, resp):
